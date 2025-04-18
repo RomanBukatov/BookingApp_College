@@ -10,6 +10,7 @@ from PyQt5.QtCore import QDateTime
 import psycopg2
 import os
 
+
 # Настройки подключения к базе данных
 DB_HOST = 'localhost'
 DB_NAME = 'Booking_db'
