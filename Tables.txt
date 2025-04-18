@@ -1,0 +1,45 @@
+-- Создание таблицы Users
+CREATE TABLE Users (
+    user_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
+
+-- Создание таблицы RoomTypes
+CREATE TABLE RoomTypes (
+    type_id SERIAL PRIMARY KEY,
+    type_name VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+-- Создание таблицы Rooms
+CREATE TABLE Rooms (
+    room_id SERIAL PRIMARY KEY,
+    room_number VARCHAR(50) NOT NULL,
+    capacity INTEGER NOT NULL CHECK (capacity > 0),
+    type_id INTEGER REFERENCES RoomTypes(type_id),
+    is_available BOOLEAN DEFAULT TRUE
+);
+
+-- Создание таблицы Reservations
+CREATE TABLE Reservations (
+    reservation_id SERIAL PRIMARY KEY,
+    room_id INTEGER REFERENCES Rooms(room_id),
+    user_id INTEGER REFERENCES Users(user_id),
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL,
+    purpose TEXT,
+    CONSTRAINT valid_time_range CHECK (start_time < end_time)
+);
+
+-- Создание таблицы Schedules
+CREATE TABLE Schedules (
+    schedule_id SERIAL PRIMARY KEY,
+    room_id INTEGER REFERENCES Rooms(room_id),
+    event_name VARCHAR(255) NOT NULL,
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL,
+    CONSTRAINT valid_schedule_time CHECK (start_time < end_time)
+);
