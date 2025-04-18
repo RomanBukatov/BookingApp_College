@@ -14,7 +14,7 @@ import os
 DB_HOST = 'localhost'
 DB_NAME = 'Booking_db'
 DB_USER = 'postgres'
-DB_PASS = 'Aflttdf102'
+DB_PASS = 'НЕ СКАЖУ ПАРОЛЬ'
 
 class Database:
     def __init__(self):
